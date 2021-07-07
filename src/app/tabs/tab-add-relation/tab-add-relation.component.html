@@ -1,0 +1,31 @@
+<label for="sentence-txt">Sentence</label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"(click)="ReadSentence(itemNavigation.Previous)" style="cursor: pointer;">Previous</span>
+    </div>
+    <textarea class="form-control" id="sentence-txt" [(ngModel)]="currentEntititiesWithSentenceObject && currentEntititiesWithSentenceObject.SentText" 
+         ></textarea>                
+    <div class="input-group-append">
+        <span class="input-group-text" (click)="ReadSentence(itemNavigation.Next)" style="cursor: pointer;">Next</span>
+    </div>
+</div>
+<div class="row">
+<div class="col-4">
+    <label for=""> List of entity pairs</label>
+    <ul class="list-group overflow-auto">
+        <!-- style="max-height: 300px;"> -->
+        <li class="list-group-item" *ngFor="let ep of entityPairs;let i=index">
+            <input type="radio" name="rdoEntityPair" id="rdoEntityPair-{{i}}" (click)="CheckSelectedRelation(i)">
+            &nbsp;&nbsp;{{ep.Arg1Text}}<-->{{ep.Arg2Text}}
+        </li>
+    </ul>
+</div>
+<div class="col">
+    <label for=""> List of relations</label>
+    <ul class="list-group overflow-auto">
+        <!-- style="max-height: 300px;"> -->
+        <li class="list-group-item" *ngFor="let r of relations; let i=index">
+            <input type="checkbox" id="chkRelation-{{i}}" [(ngModel)]="r.IsChecked" (change)="ChangedChkRelation(i)">&nbsp;&nbsp;{{r.Text}}
+        </li>
+    </ul>
+</div></div>

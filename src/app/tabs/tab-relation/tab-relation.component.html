@@ -1,0 +1,19 @@
+<div>
+    <label for="sentence-txt">Relation Input</label>
+    <div class="input-group mb-3">
+        <textarea class="form-control" id="sentence-txt" [(ngModel)]="inputRelation"></textarea>
+
+        <div class="input-group-append">
+            <span class="input-group-text" (click)="ReadRelation()" style="cursor: pointer;">Read</span>
+        </div>
+    </div>
+</div>
+<div >
+    <label for=""> List of relations</label>
+    <ul class="list-group overflow-auto">
+        <!-- style="max-height: 300px;"> -->
+        <li class="list-group-item" *ngFor="let r of relations">
+            {{r.Text}}
+        </li>
+    </ul>
+</div>
