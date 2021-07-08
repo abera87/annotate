@@ -7,7 +7,7 @@ import { TabType } from './Entities/EnumType';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'annotate-singlepage';
+  title = 'Annotate';
   TabType = TabType;
   selectedTab: TabType;
 
