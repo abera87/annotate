@@ -15,19 +15,19 @@ export class TabAddRelationComponent implements OnInit {
   itemNavigation = ItemNavigation;
   entititiesWithSentencesObject!: Triplet[];
   currentSentenceIndex!: number;
-  currentEntititiesWithSentenceObject!: Triplet|undefined;
+  currentEntititiesWithSentenceObject!: Triplet | undefined;
   entityPairs!: RelationMention[];
   currentEntityPair!: RelationMention;
   entityPairIndex!: number;
   relations: { Id: number, Text: string, IsChecked: boolean }[] = [];
-  hasEntityPair:boolean;
+  hasEntityPair: boolean;
 
 
   constructor(private tripletSrv: TripletsService) { }
 
   ngOnInit(): void {
     this.entititiesWithSentencesObject = this.tripletSrv.GetTripletsData();
-    this.hasEntityPair=this.tripletSrv.hasEntityPair;
+    this.hasEntityPair = this.tripletSrv.hasEntityPair;
     this.tripletSrv.GetRelationsData().forEach((item, index) => {
       this.relations.push({ Id: item.Id, Text: item.Text, IsChecked: false });
     });
@@ -35,7 +35,7 @@ export class TabAddRelationComponent implements OnInit {
     if (this.entititiesWithSentencesObject.length > 0) {
       this.currentEntititiesWithSentenceObject = this.entititiesWithSentencesObject[0];
       this.entityPairs = this.currentEntititiesWithSentenceObject.RelationMentions;
-      this.currentSentenceIndex=0;
+      this.currentSentenceIndex = 0;
     }
 
   }
@@ -62,7 +62,7 @@ export class TabAddRelationComponent implements OnInit {
 
     // un checked all relation first
     this.relations.forEach((item, index) => this.relations[index].IsChecked = false);
-  }  
+  }
 
   CheckSelectedRelation(index: number) {
     this.relations = [];
@@ -78,6 +78,7 @@ export class TabAddRelationComponent implements OnInit {
         if (tempIndex >= 0)
           this.relations[tempIndex].IsChecked = true;
       });
+
   }
 
   ChangedChkRelation(index: number) {

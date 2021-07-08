@@ -20,7 +20,7 @@ export class TabRelationComponent implements OnInit {
       let r = this.inputRelation.split('\n');
       r.forEach((element, index) => {
         if (element.trim() !== "")
-          this.relations.push({ Id: index, Text: element });
+          this.relations.push({ Id: index, Text: element.trim() });
       });
     }
   }

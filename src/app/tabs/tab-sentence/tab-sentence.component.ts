@@ -17,6 +17,7 @@ export class TabSentenceComponent implements OnInit {
   private selectedText: string | undefined;
   tdId!: number;
   selectedSentId!: number;
+  hasEntityPair: boolean;
 
   triplets!: Triplet[];
 
@@ -27,14 +28,17 @@ export class TabSentenceComponent implements OnInit {
 
   ngOnInit(): void {
     this.triplets = this.tripletSrv.GetTripletsData();
+    this.hasEntityPair = this.tripletSrv.hasEntityPair;
   }
 
   ClearAllData() {
     this.tripletSrv.ClearAllData();
+    this.entities=[];
     this.triplets = this.tripletSrv.GetTripletsData();
   }
   MakeEntityPair() {
     this.tripletSrv.CreateEntityPair();
+    this.hasEntityPair = this.tripletSrv.hasEntityPair;
   }
   ReadSentenc() {
     if (this.inputSentence.trim() !== '') {
@@ -56,6 +60,14 @@ export class TabSentenceComponent implements OnInit {
 
     if (this.entities === undefined)
       this.ShowEntities(sentId);
+
+  }
+
+  RemoveItem(item: string): void {
+    let index = this.triplets[this.selectedSentId].EntityMentions.findIndex(x => x === item);
+    if (index > -1)
+      this.triplets[this.selectedSentId].EntityMentions.splice(index, 1);
+
   }
 
   ShowEntities(sentId: number) {
@@ -104,9 +116,5 @@ export class TabSentenceComponent implements OnInit {
 
   }
 
-  RemoveItem(item: string): void {
-    let index = this.triplets[this.selectedSentId].EntityMentions.findIndex(x => x === item);
-    if (index > -1)
-      this.triplets[this.selectedSentId].EntityMentions.splice(index, 1);
-  }
+
 }
