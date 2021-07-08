@@ -11,10 +11,10 @@ import { TripletsService } from 'src/app/services/triplets.service';
 })
 export class TabSentenceComponent implements OnInit {
   sentences: string[] = [];
-  entities: EntityMention[]|undefined = [];
+  entities: string[] | undefined = [];
   inputSentence!: string;
   hostRectangle: SelectionRectangle | null;
-  private selectedText: string|undefined;
+  private selectedText: string | undefined;
   tdId!: number;
   selectedSentId!: number;
 
@@ -43,8 +43,8 @@ export class TabSentenceComponent implements OnInit {
       sentence.EntityMentions = [];
 
     // check entity already exists
-    if (sentence !== undefined && sentence.EntityMentions.find(x => x.Text === text) === undefined)
-      sentence.EntityMentions.push({ Text: text === "" ? "Dummy" : text });
+    if (sentence !== undefined && sentence.EntityMentions.find(x => x === text) === undefined)
+      sentence.EntityMentions.push(text === "" ? "Dummy" : text);
 
     if (this.entities === undefined)
       this.ShowEntities(sentId);
@@ -97,7 +97,7 @@ export class TabSentenceComponent implements OnInit {
   }
 
   RemoveItem(item: string): void {
-    let index = this.triplets[this.selectedSentId].EntityMentions.findIndex(x => x.Text === item);
+    let index = this.triplets[this.selectedSentId].EntityMentions.findIndex(x => x === item);
     if (index > -1)
       this.triplets[this.selectedSentId].EntityMentions.splice(index, 1);
   }

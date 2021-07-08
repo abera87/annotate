@@ -58,7 +58,7 @@
         <ul class="list-group overflow-auto">
             <!-- style="max-height: 300px;"> -->
             <li class="list-group-item" *ngFor="let entity of entities">
-                {{entity.Text}}<span class="close" (click)="RemoveItem(entity.Text)">x</span>
+                {{entity}}<span class="close" (click)="RemoveItem(entity)">x</span>
             </li>
         </ul>
     </div>

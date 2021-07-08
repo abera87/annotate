@@ -74,11 +74,8 @@ export class TabAddRelationComponent implements OnInit {
             if (i == j)
               continue;
             let entityPair = new RelationMention();
-            entityPair.Arg1Text = currentItem.EntityMentions[i].Text;
-            // entityPair.Arg1StartIndex = currentItem.EntityMentions[i].StartPositions[0];
-            entityPair.Arg2Text = currentItem.EntityMentions[j].Text;
-            //entityPair.Arg2StartIndex = currentItem.EntityMentions[j].StartPositions[0];
-            //  let item = `${this.entities[i]} ${this.entities[j]}`;
+            entityPair.Arg1Text = currentItem.EntityMentions[i];
+            entityPair.Arg2Text = currentItem.EntityMentions[j];
             this.entityPairs.push(entityPair);
           }
       this.entititiesWithSentencesObject[h].RelationMentions = [...this.entityPairs];
