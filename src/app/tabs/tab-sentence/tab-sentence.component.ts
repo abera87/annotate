@@ -35,6 +35,7 @@ export class TabSentenceComponent implements OnInit {
     this.tripletSrv.ClearAllData();
     this.entities=[];
     this.triplets = this.tripletSrv.GetTripletsData();
+    this.hasEntityPair = this.tripletSrv.hasEntityPair;
   }
   MakeEntityPair() {
     this.tripletSrv.CreateEntityPair();
