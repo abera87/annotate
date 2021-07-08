@@ -11,12 +11,13 @@
 </div>
 <div class="row">
 <div class="col-4">
-    <label for=""> List of entity pairs</label>
+    <label> List of entity pairs<span *ngIf="!hasEntityPair" class="myLabel"> No pair available</span></label>
+    
     <ul class="list-group overflow-auto">
         <!-- style="max-height: 300px;"> -->
         <li class="list-group-item" *ngFor="let ep of entityPairs;let i=index">
             <input type="radio" name="rdoEntityPair" id="rdoEntityPair-{{i}}" (click)="CheckSelectedRelation(i)">
-            &nbsp;&nbsp;{{ep.Arg1Text}}<-->{{ep.Arg2Text}}
+            <label for="rdoEntityPair-{{i}}">&nbsp;{{ep.Arg1Text}}<-->{{ep.Arg2Text}}</label>            
         </li>
     </ul>
 </div>
@@ -25,7 +26,8 @@
     <ul class="list-group overflow-auto">
         <!-- style="max-height: 300px;"> -->
         <li class="list-group-item" *ngFor="let r of relations; let i=index">
-            <input type="checkbox" id="chkRelation-{{i}}" [(ngModel)]="r.IsChecked" (change)="ChangedChkRelation(i)">&nbsp;&nbsp;{{r.Text}}
+            <input type="checkbox" id="chkRelation-{{i}}" [(ngModel)]="r.IsChecked" (change)="ChangedChkRelation(i)">
+            <label for="chkRelation-{{i}}">&nbsp;{{r.Text}}</label>
         </li>
     </ul>
 </div></div>

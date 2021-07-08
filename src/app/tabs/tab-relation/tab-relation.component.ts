@@ -19,7 +19,8 @@ export class TabRelationComponent implements OnInit {
     if (this.inputRelation.trim() !== '') {
       let r = this.inputRelation.split('\n');
       r.forEach((element, index) => {
-        this.relations.push({ Id: index, Text: element });
+        if (element.trim() !== "")
+          this.relations.push({ Id: index, Text: element });
       });
     }
   }

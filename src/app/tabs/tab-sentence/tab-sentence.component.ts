@@ -29,11 +29,19 @@ export class TabSentenceComponent implements OnInit {
     this.triplets = this.tripletSrv.GetTripletsData();
   }
 
+  ClearAllData() {
+    this.tripletSrv.ClearAllData();
+    this.triplets = this.tripletSrv.GetTripletsData();
+  }
+  MakeEntityPair() {
+    this.tripletSrv.CreateEntityPair();
+  }
   ReadSentenc() {
     if (this.inputSentence.trim() !== '') {
       this.sentences = this.inputSentence.split('\n');
       this.sentences.forEach((element, index) => {
-        this.triplets.push(new Triplet(index, element));
+        if (element.trim() !== "")
+          this.triplets.push(new Triplet(index, element));
       });
     }
   }
@@ -44,7 +52,7 @@ export class TabSentenceComponent implements OnInit {
 
     // check entity already exists
     if (sentence !== undefined && sentence.EntityMentions.find(x => x === text) === undefined)
-      sentence.EntityMentions.push(text === "" ? "Dummy" : text);
+      sentence.EntityMentions.push(text === "" ? "Dummy" : text.trim());
 
     if (this.entities === undefined)
       this.ShowEntities(sentId);

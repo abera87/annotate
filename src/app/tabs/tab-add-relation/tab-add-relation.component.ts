@@ -20,19 +20,19 @@ export class TabAddRelationComponent implements OnInit {
   currentEntityPair!: RelationMention;
   entityPairIndex!: number;
   relations: { Id: number, Text: string, IsChecked: boolean }[] = [];
+  hasEntityPair:boolean;
 
 
   constructor(private tripletSrv: TripletsService) { }
 
   ngOnInit(): void {
     this.entititiesWithSentencesObject = this.tripletSrv.GetTripletsData();
+    this.hasEntityPair=this.tripletSrv.hasEntityPair;
     this.tripletSrv.GetRelationsData().forEach((item, index) => {
       this.relations.push({ Id: item.Id, Text: item.Text, IsChecked: false });
     });
 
     if (this.entititiesWithSentencesObject.length > 0) {
-      if (this.entititiesWithSentencesObject[0].RelationMentions === undefined)
-        this.CreateEntityPair();
       this.currentEntititiesWithSentenceObject = this.entititiesWithSentencesObject[0];
       this.entityPairs = this.currentEntititiesWithSentenceObject.RelationMentions;
       this.currentSentenceIndex=0;
@@ -62,29 +62,7 @@ export class TabAddRelationComponent implements OnInit {
 
     // un checked all relation first
     this.relations.forEach((item, index) => this.relations[index].IsChecked = false);
-  }
-
-  CreateEntityPair(): void {
-    for (let h = 0; h < this.entititiesWithSentencesObject.length; h++) {
-      let currentItem = this.entititiesWithSentencesObject[h];
-      this.entityPairs = [];
-      if (currentItem.EntityMentions !== undefined)
-        for (let i = 0; i < currentItem.EntityMentions.length; i++)
-          for (let j = 0; j < currentItem.EntityMentions.length; j++) {
-            if (i == j)
-              continue;
-            let entityPair = new RelationMention();
-            entityPair.Arg1Text = currentItem.EntityMentions[i];
-            entityPair.Arg2Text = currentItem.EntityMentions[j];
-            this.entityPairs.push(entityPair);
-          }
-      this.entititiesWithSentencesObject[h].RelationMentions = [...this.entityPairs];
-    }
-    this.currentEntityPair = this.entititiesWithSentencesObject[0].RelationMentions[0];// this.entityPairs[0];
-    //this.entityPairIndex = 0;
-    this.entityPairs = this.entititiesWithSentencesObject[0].RelationMentions;
-
-  }
+  }  
 
   CheckSelectedRelation(index: number) {
     this.relations = [];
