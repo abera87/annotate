@@ -4,7 +4,7 @@
         <textarea class="form-control" id="sentence-txt" [(ngModel)]="inputRelation"></textarea>
 
         <div class="input-group-append">
-            <span class="input-group-text" (click)="ReadRelation()" style="cursor: pointer;">Read</span>
+            <span class="input-group-text" (click)="ReadRelation()" [ngStyle]="{'cursor':EnableReadButton()? 'pointer':'auto'}">Read</span>
         </div>
     </div>
 </div>

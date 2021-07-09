@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionRectangle, TextSelectEvent } from 'src/app/directives/text-seletion.directive';
-import { EntityMention } from 'src/app/Entities/EntityMention';
 import { Triplet } from 'src/app/Entities/Triplet';
 import { TripletsService } from 'src/app/services/triplets.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tab-sentence',
@@ -21,7 +21,7 @@ export class TabSentenceComponent implements OnInit {
 
   triplets!: Triplet[];
 
-  constructor(private tripletSrv: TripletsService) {
+  constructor(private tripletSrv: TripletsService, private toastr: ToastrService) {
     this.hostRectangle = null;
     this.selectedText = "";
   }
@@ -32,22 +32,28 @@ export class TabSentenceComponent implements OnInit {
   }
 
   ClearAllData() {
-    this.tripletSrv.ClearAllData();
-    this.entities=[];
-    this.triplets = this.tripletSrv.GetTripletsData();
-    this.hasEntityPair = this.tripletSrv.hasEntityPair;
+    if (confirm("Are you sure, you want to clear all data?")) {
+      this.tripletSrv.ClearAllData();
+      this.entities = [];
+      this.triplets = this.tripletSrv.GetTripletsData();
+      this.hasEntityPair = this.tripletSrv.hasEntityPair;
+      this.toastr.success("All data removed!!!", "Sentence");
+    }
   }
   MakeEntityPair() {
     this.tripletSrv.CreateEntityPair();
     this.hasEntityPair = this.tripletSrv.hasEntityPair;
+    this.toastr.success("Entity pair created!!!", "Entity");
   }
-  ReadSentenc() {
-    if (this.inputSentence.trim() !== '') {
+  ReadSentence() {
+    if (!this.hasEntityPair && this.inputSentence.trim() !== '') {
       this.sentences = this.inputSentence.split('\n');
       this.sentences.forEach((element, index) => {
         if (element.trim() !== "")
           this.triplets.push(new Triplet(index, element));
       });
+
+      this.toastr.success("Ok!!!", "Sentence");
     }
   }
   AddEntity(sentId: number, text: string = "") {
@@ -62,12 +68,16 @@ export class TabSentenceComponent implements OnInit {
     if (this.entities === undefined)
       this.ShowEntities(sentId);
 
+    this.toastr.success(`Added ${text.trim()}!!!`, "Entity");
   }
 
   RemoveItem(item: string): void {
     let index = this.triplets[this.selectedSentId].EntityMentions.findIndex(x => x === item);
-    if (index > -1)
+    if (index > -1) {
       this.triplets[this.selectedSentId].EntityMentions.splice(index, 1);
+      this.toastr.success(`${item} removed !!!`, "Entity");
+    }
+    this.toastr.error(`Some issue to remove ${item}`, "Entity");
 
   }
 

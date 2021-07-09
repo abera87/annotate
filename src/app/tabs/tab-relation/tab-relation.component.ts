@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TripletsService } from 'src/app/services/triplets.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tab-relation',
@@ -9,20 +10,29 @@ import { TripletsService } from 'src/app/services/triplets.service';
 export class TabRelationComponent implements OnInit {
   inputRelation!: string;
   relations!: { Id: number, Text: string }[];
-  constructor(private tripletSrv: TripletsService) { }
+  hasEntityPair: boolean;
+
+  constructor(private tripletSrv: TripletsService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.relations = this.tripletSrv.GetRelationsData();
+    this.hasEntityPair = this.tripletSrv.hasEntityPair;
   }
 
   ReadRelation() {
-    if (this.inputRelation.trim() !== '') {
+    if (this.EnableReadButton() && this.inputRelation.trim() !== '') {
       let r = this.inputRelation.split('\n');
       r.forEach((element, index) => {
         if (element.trim() !== "")
           this.relations.push({ Id: index, Text: element.trim() });
       });
+
+      this.toastr.success("Relation added", "Relation");
     }
+  }
+
+  EnableReadButton() {
+    return !(this.hasEntityPair && this.relations.length > 0);
   }
 
 }

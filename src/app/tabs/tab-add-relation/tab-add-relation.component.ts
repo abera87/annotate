@@ -1,9 +1,9 @@
-import { emitDistinctChangesOnlyDefaultValue } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { RelationMention } from 'src/app/Entities/RelationMention';
 import { Triplet } from 'src/app/Entities/Triplet';
 import { ItemNavigation } from '../../Entities/EnumType';
 import { TripletsService } from 'src/app/services/triplets.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tab-add-relation',
@@ -23,7 +23,7 @@ export class TabAddRelationComponent implements OnInit {
   hasEntityPair: boolean;
 
 
-  constructor(private tripletSrv: TripletsService) { }
+  constructor(private tripletSrv: TripletsService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.entititiesWithSentencesObject = this.tripletSrv.GetTripletsData();
@@ -79,6 +79,7 @@ export class TabAddRelationComponent implements OnInit {
           this.relations[tempIndex].IsChecked = true;
       });
 
+      
   }
 
   ChangedChkRelation(index: number) {
@@ -88,12 +89,14 @@ export class TabAddRelationComponent implements OnInit {
     if (checkedValue) {
       if (this.entityPairs[this.entityPairIndex].RelationNames.findIndex(x => x === this.relations[index].Text) < 0) {
         this.entityPairs[this.entityPairIndex].RelationNames.push(this.relations[index].Text);
+        this.toastr.success("Relation added!!!","Annotation");
       }
     }
     else {
       let ii = this.entityPairs[this.entityPairIndex].RelationNames.findIndex(x => x === this.relations[index].Text);
       if (ii >= 0) {
         this.entityPairs[this.entityPairIndex].RelationNames.slice(ii, 1);
+        this.toastr.warning("Relation removed!!!","Annotation");
       }
     }
   }

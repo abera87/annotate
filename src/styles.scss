@@ -3,5 +3,7 @@
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
+@import '~ngx-toastr/toastr-bs4-alert';
+
 @import "~jsoneditor/dist/jsoneditor.min.css";
 textarea.jsoneditor-text{min-height:500px;}
