@@ -13,22 +13,31 @@ export class TripletsService {
   private relations: { Id: number, Text: string }[];
   private entityPairs!: RelationMention[];
   hasEntityPair: boolean;
+
+
   constructor() {
-    this.ClearAllData();
+    this.tripletData = [];
+    this.entityPairs = [];
+    this.relations = [];
   }
 
   GetTripletsData() {
     return this.tripletData;
   }
   GetRelationsData() {
-    
     return this.relations;
   }
   ClearAllData() {
-    this.tripletData = [];
-    this.relations = [];
-    this.entityPairs = [];
+    this.tripletData.splice(0, this.tripletData.length);
+    this.entityPairs.splice(0, this.entityPairs.length);
     this.hasEntityPair = false;
+  }
+  ClearRelationData() {
+    this.relations.splice(0, this.relations.length);
+    this.tripletData.forEach(element => {
+      if (element.RelationMentions !== undefined)
+        element.RelationMentions.splice(0, element.RelationMentions.length);
+    });
   }
   CreateEntityPair(): void {
     for (let h = 0; h < this.tripletData.length; h++) {
@@ -45,9 +54,28 @@ export class TripletsService {
             this.entityPairs.push(entityPair);
           }
       this.tripletData[h].RelationMentions = [...this.entityPairs];
-      this.hasEntityPair = this.hasEntityPair || this.entityPairs.length > 0;
     }
   }
+
+
+  CreateEntityPairByIndex(index: number): void {
+    let currentItem = this.tripletData[index];
+    this.entityPairs = [];
+    if (currentItem.EntityMentions !== undefined)
+      for (let i = 0; i < currentItem.EntityMentions.length; i++)
+        for (let j = 0; j < currentItem.EntityMentions.length; j++) {
+          if (i == j)
+            continue;
+          let entityPair = new RelationMention();
+          entityPair.Arg1Text = currentItem.EntityMentions[i].trim();
+          entityPair.Arg2Text = currentItem.EntityMentions[j].trim();
+          this.entityPairs.push(entityPair);
+        }
+    this.tripletData[index].RelationMentions = [...this.entityPairs];
+  }
+
+
+
   SaveToLocalStorage() {
     localStorage.setItem(this.dataKey, JSON.stringify(this.tripletData));
     localStorage.setItem(this.relationKey, JSON.stringify(this.relations));

@@ -20,7 +20,8 @@ export class TabRelationComponent implements OnInit {
   }
 
   ReadRelation() {
-    if (this.EnableReadButton() && this.inputRelation.trim() !== '') {
+    this.tripletSrv.ClearRelationData();
+    if (this.inputRelation.trim() !== '') {
       let r = this.inputRelation.split('\n');
       r.forEach((element, index) => {
         if (element.trim() !== "")
@@ -31,8 +32,5 @@ export class TabRelationComponent implements OnInit {
     }
   }
 
-  EnableReadButton() {
-    return !(this.hasEntityPair && this.relations.length > 0);
-  }
 
 }

@@ -4,7 +4,7 @@
         <textarea class="form-control" id="sentence-txt" [(ngModel)]="inputSentence"></textarea>
 
         <div class="input-group-append">
-            <span class="input-group-text" (click)="ReadSentence()" [ngStyle]="{'cursor':(!hasEntityPair)? 'pointer':'auto'}">Read</span>
+            <span class="input-group-text" (click)="ReadSentence()" style="cursor: pointer;">Read</span>
         </div>
     </div>
 </div>
@@ -12,8 +12,8 @@
 <div class="row">
     <div class="col-9 mb-3">
         <label for="">List of sentences</label>
-        <button class="btn btn-link btn-sm" (click)="MakeEntityPair()" [disabled]="hasEntityPair">Make Entity Pair</button>
-        <button class="btn btn-link btn-sm" (click)="ClearAllData()">Clear All Data</button>
+        <!-- <button class="btn btn-link btn-sm" (click)="MakeEntityPair()" [disabled]="hasEntityPair">Make Entity Pair</button>
+        <button class="btn btn-link btn-sm" (click)="ClearAllData()">Clear All Data</button> -->
         <div class="table-responsive">
             <table class="table table-sm">
                 <thead>

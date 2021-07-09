@@ -46,7 +46,8 @@ export class TabSentenceComponent implements OnInit {
     this.toastr.success("Entity pair created!!!", "Entity");
   }
   ReadSentence() {
-    if (!this.hasEntityPair && this.inputSentence.trim() !== '') {
+    this.tripletSrv.ClearAllData();
+    if (this.inputSentence.trim() !== '') {
       this.sentences = this.inputSentence.split('\n');
       this.sentences.forEach((element, index) => {
         if (element.trim() !== "")
@@ -57,13 +58,18 @@ export class TabSentenceComponent implements OnInit {
     }
   }
   AddEntity(sentId: number, text: string = "") {
+
     let sentence = this.triplets.find(x => x.SentId === sentId);
     if (sentence !== undefined && sentence.EntityMentions === undefined)
       sentence.EntityMentions = [];
 
     // check entity already exists
-    if (sentence !== undefined && sentence.EntityMentions.find(x => x === text) === undefined)
+    if (sentence !== undefined && sentence.EntityMentions.find(x => x === text) === undefined) {
       sentence.EntityMentions.push(text === "" ? "Dummy" : text.trim());
+      // if we push new entity, always clear realtion mentioned and relation name, doing for this sentence now
+      if (sentence.RelationMentions !== undefined)
+        sentence.RelationMentions.splice(0, sentence.RelationMentions.length);
+    }
 
     if (this.entities === undefined)
       this.ShowEntities(sentId);
