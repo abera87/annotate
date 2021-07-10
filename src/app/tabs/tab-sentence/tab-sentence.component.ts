@@ -64,17 +64,22 @@ export class TabSentenceComponent implements OnInit {
       sentence.EntityMentions = [];
 
     // check entity already exists
-    if (sentence !== undefined && sentence.EntityMentions.find(x => x === text) === undefined) {
+    if (sentence !== undefined && sentence.EntityMentions.find(x => x === text.trim()) === undefined) {
       sentence.EntityMentions.push(text === "" ? "Dummy" : text.trim());
       // if we push new entity, always clear realtion mentioned and relation name, doing for this sentence now
       if (sentence.RelationMentions !== undefined)
         sentence.RelationMentions.splice(0, sentence.RelationMentions.length);
+
+      this.toastr.success(`Added ${text.trim()}!!!`, "Entity");
+    }
+    else {
+      this.toastr.success(`${text.trim()} entity exist!!!`, "Entity");
     }
 
     if (this.entities === undefined)
       this.ShowEntities(sentId);
 
-    this.toastr.success(`Added ${text.trim()}!!!`, "Entity");
+
   }
 
   RemoveItem(item: string): void {
@@ -83,8 +88,9 @@ export class TabSentenceComponent implements OnInit {
       this.triplets[this.selectedSentId].EntityMentions.splice(index, 1);
       this.toastr.success(`${item} removed !!!`, "Entity");
     }
-    this.toastr.error(`Some issue to remove ${item}`, "Entity");
-
+    else {
+      this.toastr.error(`Some issue to remove ${item}`, "Entity");
+    }
   }
 
   ShowEntities(sentId: number) {
