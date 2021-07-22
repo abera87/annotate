@@ -109,7 +109,7 @@ export class TabAddRelationComponent implements OnInit {
     else {
       let ii = this.entityPairs[this.entityPairIndex].RelationNames.findIndex(x => x === this.relations[index].Text);
       if (ii >= 0) {
-        this.entityPairs[this.entityPairIndex].RelationNames.slice(ii, 1);
+        this.entityPairs[this.entityPairIndex].RelationNames.splice(ii, 1);
         this.toastr.warning("Relation removed!!!", "Annotation");
       }
     }
