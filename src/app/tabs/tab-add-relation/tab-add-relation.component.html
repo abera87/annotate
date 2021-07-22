@@ -1,35 +1,48 @@
 <label for="sentence-txt">Sentence</label>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
-        <span class="input-group-text"(click)="ReadSentence(itemNavigation.Previous)" style="cursor: pointer;">Previous</span>
+        <span class="input-group-text" (click)="ReadSentence(itemNavigation.Previous)"
+            style="cursor: pointer;">Previous</span>
     </div>
-    <textarea class="form-control" id="sentence-txt" [(ngModel)]="currentEntititiesWithSentenceObject && currentEntititiesWithSentenceObject.SentText" 
-         ></textarea>                
+    <textarea class="form-control" id="sentence-txt"
+        [(ngModel)]="currentEntititiesWithSentenceObject && currentEntititiesWithSentenceObject.SentText"></textarea>
     <div class="input-group-append">
         <span class="input-group-text" (click)="ReadSentence(itemNavigation.Next)" style="cursor: pointer;">Next</span>
     </div>
 </div>
 <div class="row">
-<div class="col-4">
-    <label> List of entity pairs
-        <!-- <span *ngIf="!hasEntityPair" class="myLabel"> No pair available</span> -->
-    </label>
-    
-    <ul class="list-group overflow-auto">
-        <!-- style="max-height: 300px;"> -->
-        <li class="list-group-item" *ngFor="let ep of entityPairs;let i=index">
-            <input type="radio" name="rdoEntityPair" id="rdoEntityPair-{{i}}" (click)="CheckSelectedRelation(i)">
-            <label for="rdoEntityPair-{{i}}">&nbsp;{{ep.Arg1Text}}<-->{{ep.Arg2Text}}</label>            
-        </li>
-    </ul>
+    <div class="col-4">
+        <label class="mb-2"> List of entity pairs
+            <!-- <span *ngIf="!hasEntityPair" class="myLabel"> No pair available</span> -->
+        </label>
+
+        <ul class="list-group overflow-auto">
+            <!-- style="max-height: 300px;"> -->
+            <li class="list-group-item" *ngFor="let ep of entityPairs;let i=index">
+                <input type="radio" name="rdoEntityPair" id="rdoEntityPair-{{i}}" (click)="CheckSelectedRelation(i)">
+                <label for="rdoEntityPair-{{i}}">&nbsp;{{ep.Arg1Text}}<-->{{ep.Arg2Text}}</label>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <div class="form-inline mb-1">
+            <div class="form-group">
+                <label for=""> List of relations</label>&nbsp;
+                <input type="search" class="form-control form-control-sm" [(ngModel)]="SearchRelation" placeholder="Search">
+            </div>
+        </div>
+        <ul class="list-group overflow-auto">
+            <!-- style="max-height: 300px;"> -->
+            <li class="list-group-item"
+                *ngFor="let r of relations | relationFilter:SearchRelation;trackBy:trackByIndex;">
+                <input type="checkbox" id="chkRelation-{{r.index}}" [(ngModel)]="r.value.IsChecked"
+                    (change)="ChangedChkRelation(r.index)">
+                <label for="chkRelation-{{r.index}}">&nbsp;{{r.value.Text}}</label>
+            </li>
+            <!-- <li class="list-group-item" *ngFor="let r of relations; let i=index">
+                <input type="checkbox" id="chkRelation-{{i}}" [(ngModel)]="r.IsChecked" (change)="ChangedChkRelation(i)">
+                <label for="chkRelation-{{i}}">&nbsp;{{r.Text}}</label>
+            </li> -->
+        </ul>
+    </div>
 </div>
-<div class="col">
-    <label for=""> List of relations</label>
-    <ul class="list-group overflow-auto">
-        <!-- style="max-height: 300px;"> -->
-        <li class="list-group-item" *ngFor="let r of relations; let i=index">
-            <input type="checkbox" id="chkRelation-{{i}}" [(ngModel)]="r.IsChecked" (change)="ChangedChkRelation(i)">
-            <label for="chkRelation-{{i}}">&nbsp;{{r.Text}}</label>
-        </li>
-    </ul>
-</div></div>

@@ -16,6 +16,7 @@ import { TabOutputComponent } from './tabs/tab-output/tab-output.component';
 import { TabAddRelationComponent } from './tabs/tab-add-relation/tab-add-relation.component';
 import { TabSentenceComponent } from './tabs/tab-sentence/tab-sentence.component';
 import { TabRelationComponent } from './tabs/tab-relation/tab-relation.component';
+import { RelationFilterPipe } from './pipes/relation-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TabRelationComponent } from './tabs/tab-relation/tab-relation.component
     TabRelationComponent,
     TabAddRelationComponent,
     TabOutputComponent,
-    TextSeletionDirective
+    TextSeletionDirective,
+    RelationFilterPipe
   ],
   imports: [
     BrowserModule,
