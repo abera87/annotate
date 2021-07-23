@@ -3,7 +3,7 @@
 [Download](https://github.com/abera87/annotate/raw/5e5f4598527c524f25b654c4ab6583043e6332d5/HowToUse/video.webm) |
 This is very easy to use [click here](https://abera87.github.io/annotate/) to extract relation triplets now !!!
 
-# Annotate
+# Relation Triplets Extractor (RTE)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
 
