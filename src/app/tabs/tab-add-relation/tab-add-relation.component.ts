@@ -4,6 +4,7 @@ import { Triplet } from 'src/app/Entities/Triplet';
 import { ItemNavigation } from '../../Entities/EnumType';
 import { TripletsService } from 'src/app/services/triplets.service';
 import { ToastrService } from 'ngx-toastr';
+import { Relation } from 'src/app/Entities/Relation';
 
 @Component({
   selector: 'app-tab-add-relation',
@@ -19,8 +20,10 @@ export class TabAddRelationComponent implements OnInit {
   entityPairs!: RelationMention[];
   currentEntityPair!: RelationMention;
   entityPairIndex!: number;
-  relations: { Id: number, Text: string, IsChecked: boolean }[] = [];
+  // relations: { Id: number, Text: string, IsChecked: boolean }[] = [];
+  relations: Relation[] = [];
   hasEntityPair: boolean;
+  SearchRelation:string;
 
 
   constructor(private tripletSrv: TripletsService, private toastr: ToastrService) { }
@@ -31,7 +34,7 @@ export class TabAddRelationComponent implements OnInit {
 
     // check and make entity pair
     if (this.entititiesWithSentencesObject[0].RelationMentions === undefined
-      || (this.entititiesWithSentencesObject[0].RelationMentions.length == 0
+      || (this.entititiesWithSentencesObject[0].RelationMentions !== undefined
         && this.entititiesWithSentencesObject[0].RelationMentions.length == 0))
       this.tripletSrv.CreateEntityPairByIndex(0);
     if (this.tripletSrv.GetRelationsData() !== undefined)
@@ -106,9 +109,13 @@ export class TabAddRelationComponent implements OnInit {
     else {
       let ii = this.entityPairs[this.entityPairIndex].RelationNames.findIndex(x => x === this.relations[index].Text);
       if (ii >= 0) {
-        this.entityPairs[this.entityPairIndex].RelationNames.slice(ii, 1);
+        this.entityPairs[this.entityPairIndex].RelationNames.splice(ii, 1);
         this.toastr.warning("Relation removed!!!", "Annotation");
       }
     }
+  }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 }
