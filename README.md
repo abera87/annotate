@@ -1,3 +1,8 @@
+<img src="https://user-images.githubusercontent.com/57747453/126824653-a9f35e25-e3df-4417-8e3d-01653bcffc0c.gif" width="1080" height="480">
+
+[Download](https://github.com/abera87/annotate/blob/5e5f4598527c524f25b654c4ab6583043e6332d5/HowToUse/video.webm) |
+This is very easy to use [click here](https://abera87.github.io/annotate/) to extract relation triplets now !!!
+
 # Annotate
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
