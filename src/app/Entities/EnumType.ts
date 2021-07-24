@@ -2,7 +2,8 @@ export enum TabType{
     Sentence,
     Relation,
     AddRelation,
-    Output
+    Output,
+    Demo
   }
 
   export enum ItemNavigation {
