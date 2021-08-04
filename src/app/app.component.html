@@ -331,6 +331,10 @@
       <span class="nav-link " [ngClass]="(selectedTab == TabType.Demo)? 'active' : ''"
         (click)="selectedTab = TabType.Demo" style="cursor: pointer;">Demo</span>
     </li>
+    <li class="nav-item">
+      <span class="nav-link " [ngClass]="(selectedTab == TabType.Samples)? 'active' : ''"
+        (click)="selectedTab = TabType.Samples" style="cursor: pointer;">Samples</span>
+    </li>
   </ul>
 
   <div [ngSwitch]="selectedTab">
@@ -349,6 +353,9 @@
     </div>
     <div *ngSwitchCase="TabType.Demo">
       <app-tab-demo></app-tab-demo>
+  </div>
+    <div *ngSwitchCase="TabType.Samples">
+      <app-tab-samples></app-tab-samples>
   </div>
   </div>
 

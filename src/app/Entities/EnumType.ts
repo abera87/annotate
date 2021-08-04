@@ -3,7 +3,8 @@ export enum TabType{
     Relation,
     AddRelation,
     Output,
-    Demo
+    Demo,
+    Samples
   }
 
   export enum ItemNavigation {
