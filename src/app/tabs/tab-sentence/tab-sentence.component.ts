@@ -29,7 +29,7 @@ export class TabSentenceComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.tripletSrv.isUploadedTripletsWithRelationsData$.unsubscribe();
+    //this.tripletSrv.isUploadedTripletsWithRelationsData$.unsubscribe();
   }
 
  
