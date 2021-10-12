@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SelectionRectangle, TextSelectEvent } from 'src/app/directives/text-seletion.directive';
 import { Triplet } from 'src/app/Entities/Triplet';
 import { TripletsService } from 'src/app/services/triplets.service';
@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './tab-sentence.component.html',
   styleUrls: ['./tab-sentence.component.scss']
 })
-export class TabSentenceComponent implements OnInit {
+export class TabSentenceComponent implements OnInit, OnDestroy {
   sentences: string[] = [];
   entities: string[] | undefined = [];
   inputSentence!: string;
@@ -21,12 +21,25 @@ export class TabSentenceComponent implements OnInit {
 
   triplets!: Triplet[];
 
+
   constructor(private tripletSrv: TripletsService, private toastr: ToastrService) {
     this.hostRectangle = null;
     this.selectedText = "";
   }
 
+
+  ngOnDestroy(): void {
+    this.tripletSrv.isUploadedTripletsWithRelationsData$.unsubscribe();
+  }
+
+ 
   ngOnInit(): void {
+    this.tripletSrv.isUploadedTripletsWithRelationsData$.subscribe(data => {
+      if (data) {
+        this.triplets = this.tripletSrv.GetTripletsData();
+        this.hasEntityPair = this.tripletSrv.hasEntityPair;
+      }
+    });
     this.triplets = this.tripletSrv.GetTripletsData();
     this.hasEntityPair = this.tripletSrv.hasEntityPair;
   }

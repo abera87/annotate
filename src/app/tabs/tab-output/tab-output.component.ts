@@ -2,6 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Triplet } from 'src/app/Entities/Triplet';
 import { TripletsService } from 'src/app/services/triplets.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+import { FileSaverOptions } from 'file-saver';
+import { FileSaverService } from 'ngx-filesaver';
 
 @Component({
   selector: 'app-tab-output',
@@ -11,40 +13,26 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 export class TabOutputComponent implements OnInit, AfterViewInit {
 
   entititiesWithSentencesObject!: Triplet[];
-  entititiesWithSentencesObjectOutput: Triplet[];
+  entitiesWithSentencesObjectOutput: Triplet[];
   options = new JsonEditorOptions();
   @ViewChild(JsonEditorComponent) editor!: JsonEditorComponent;
 
-  constructor(private tripletSrv: TripletsService, private editorTool: ElementRef) {
+  fileServerOptions: FileSaverOptions = {
+    autoBom: false,
+  };
+
+  constructor(private tripletSrv: TripletsService, private fileSaverService: FileSaverService) {
     this.options.mode = 'text';
     //this.options.modes = ['code', 'text', 'tree', 'view'];
     //this.options.schema = schema;
     this.options.statusBar = false;
     this.options.mainMenuBar = false;
     this.options.onChange = () => console.log(this.editor.get());
-    this.options.onCreateMenu = () => {
-    }
+
   }
 
   ngOnInit(): void {
-    this.entititiesWithSentencesObject = this.tripletSrv.GetTripletsData();
-    this.entititiesWithSentencesObjectOutput = [];
-    this.entititiesWithSentencesObject.forEach((item, index) => {
-      let triplet: Triplet;
-      triplet = new Triplet(item.SentId, item.SentText);
-      if (item.EntityMentions === undefined)
-        triplet.EntityMentions = [];
-      else
-        triplet.EntityMentions = [...item.EntityMentions];
-      if (item.RelationMentions === undefined)
-        triplet.RelationMentions = [];
-      else {
-        let relationNames = item.RelationMentions.filter(x => (x.RelationNames !== undefined && x.RelationNames.length > 0));
-        triplet.RelationMentions = [...relationNames];
-      }
-
-      this.entititiesWithSentencesObjectOutput.push(triplet);
-    });
+    this.entitiesWithSentencesObjectOutput = this.tripletSrv.GetTripletsDataForOutput();
   }
 
   ngAfterViewInit() {
@@ -61,7 +49,11 @@ export class TabOutputComponent implements OnInit, AfterViewInit {
   // }
 
   saveOutputText() {
-    alert('saved');
+    const fileName = `Output.json`;
+
+    const fileType = this.fileSaverService.genType(fileName);
+    const txtBlob = new Blob([JSON.stringify(this.entitiesWithSentencesObjectOutput)], { type: fileType });
+    this.fileSaverService.save(txtBlob, fileName, undefined, this.fileServerOptions);
   }
 
 }

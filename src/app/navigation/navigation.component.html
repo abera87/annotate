@@ -15,17 +15,19 @@
     <span style="color: white;cursor: pointer;padding-right: 6px;" title="Save current state"
       (click)="SaveCurrentState()">
       <i class="bi bi-download"></i> Save </span>
-    <span style="color: white; cursor:pointer;" title="Load saved state" (click)="LoadSavedState()">
-      <i class="bi bi-upload"></i> Load </span>
+    <span style="color: white; cursor:pointer;" title="Load saved state" (click)="fileInput.click()">
+      <i class="bi bi-upload"></i> Load       
+    </span>
+    <input type="file" style="display: none;"  #fileInput (change)="LoadSavedState(fileInput.files)"/>
   </div>
-  <!-- <label class="app-name">Annotate your Relational Triplets</label> -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <!-- <label class=" app-name">Annotate your Relational Triplets</label> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!-- <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn | async " >
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn | async " >
       <li class="nav-item active">
         <a class="nav-link text-white" routerLink="/">Home </a>
       </li>
@@ -65,5 +67,5 @@
     </ul>
     <span class="nav-link text-white" style="cursor: pointer;" *ngIf="isLoggedIn | async" (click)="Logout()">Sign
       out</span> -->
-  </div>
+      </div>
 </nav>

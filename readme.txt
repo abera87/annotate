@@ -21,3 +21,7 @@ https://coryrylan.com/blog/creating-a-dynamic-checkbox-list-in-angular
 https://www.bennadel.com/blog/3439-creating-a-medium-inspired-text-selection-directive-in-angular-5-2-10.htm
 
 https://www.npmjs.com/package/ang-jsoneditor
+
+file server
+https://github.com/cipchk/ngx-filesaver/blob/master/src/app/components/demo.component.ts
+https://www.npmjs.com/package/ngx-filesaver

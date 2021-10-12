@@ -8,6 +8,7 @@ import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 
 import { ToastrModule } from 'ngx-toastr';
+import { FileSaverModule } from 'ngx-filesaver';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -40,7 +41,8 @@ import { TabSamplesComponent } from './tabs/tab-samples/tab-samples.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgJsonEditorModule
+    NgJsonEditorModule,
+    FileSaverModule
   ],
   providers: [],
   bootstrap: [AppComponent]

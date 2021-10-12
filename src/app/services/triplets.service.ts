@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { RelationMention } from '../Entities/RelationMention';
 import { Triplet } from '../Entities/Triplet';
 
@@ -13,6 +14,8 @@ export class TripletsService {
   private relations: { Id: number, Text: string }[];
   private entityPairs!: RelationMention[];
   hasEntityPair: boolean;
+
+  isUploadedTripletsWithRelationsData$: Subject<boolean> = new Subject<boolean>();
 
 
   constructor() {
@@ -74,6 +77,44 @@ export class TripletsService {
     this.tripletData[index].RelationMentions = [...this.entityPairs];
   }
 
+
+  GetTripletsDataForOutput(): Triplet[] {
+    let entitiesWithSentencesObjectOutput: Triplet[] = [];
+    this.tripletData.forEach((item, index) => {
+      let triplet: Triplet;
+      triplet = new Triplet(item.SentId, item.SentText);
+      if (item.EntityMentions === undefined)
+        triplet.EntityMentions = [];
+      else
+        triplet.EntityMentions = [...item.EntityMentions];
+      if (item.RelationMentions === undefined)
+        triplet.RelationMentions = [];
+      else {
+        let relationNames = item.RelationMentions.filter(x => (x.RelationNames !== undefined && x.RelationNames.length > 0));
+        triplet.RelationMentions = [...relationNames];
+      }
+
+      entitiesWithSentencesObjectOutput.push(triplet);
+    });
+
+    return entitiesWithSentencesObjectOutput;
+  }
+
+  GetTripletsDataForOutputWithRelations() {
+    let tripletsWithRelations = {
+      Relations: this.relations.map(x => x.Text),
+      Annotate: this.GetTripletsDataForOutput()
+    }
+
+    return tripletsWithRelations;
+  }
+
+  SetUploadedTripletsWithRelationsData(data: { Relations: string[], Annotate: Triplet[] }) {
+    //let tripletsWithRelations=JSON.parse(data);
+    data.Relations.forEach((relation, index) => this.relations.push({ Id: index, Text: relation }));
+    this.tripletData = [...data.Annotate];
+    this.isUploadedTripletsWithRelationsData$.next(true);
+  }
 
 
   SaveToLocalStorage() {
