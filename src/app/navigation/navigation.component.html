@@ -9,7 +9,16 @@
     <img width="40" alt="Angular Logo"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
   </a>
-  <label class="app-name">Relation Triplets Extractor (RTE)</label>
+  <div>
+    <label class="app-name">Annotate your Relational Triplets</label>
+    <br />
+    <span style="color: white;cursor: pointer;padding-right: 6px;" title="Save current state"
+      (click)="SaveCurrentState()">
+      <i class="bi bi-download"></i> Save </span>
+    <span style="color: white; cursor:pointer;" title="Load saved state" (click)="LoadSavedState()">
+      <i class="bi bi-upload"></i> Load </span>
+  </div>
+  <!-- <label class="app-name">Annotate your Relational Triplets</label> -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

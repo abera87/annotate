@@ -3,6 +3,15 @@
 <ngx-json-viewer [json]="entititiesWithSentencesObject"></ngx-json-viewer> -->
 <div class="row">
     <div class="col">
-        <json-editor [options]="options" [data]="entititiesWithSentencesObjectOutput" ></json-editor>
+        <div class=" output-top-bar jsonEditor-customMenuSave" (click)="saveOutputText()">
+            <span style="color: white; cursor:pointer;" title="Download current output"><i class="bi bi-save"></i> Download </span>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="col">
+        <json-editor [options]="options" [data]="entititiesWithSentencesObjectOutput" #editorTool></json-editor>
     </div>
 </div>

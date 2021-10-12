@@ -11,8 +11,13 @@ export class NavigationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-     }
+  }
 
 
-
+  SaveCurrentState() {
+    alert('SaveCurrentState');
+  }
+  LoadSavedState(){
+    alert('LoadSavedState');
+  }
 }

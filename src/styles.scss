@@ -7,3 +7,23 @@
 
 @import "~jsoneditor/dist/jsoneditor.min.css";
 textarea.jsoneditor-text{min-height:500px;}
+
+.jsonEditor-customMenuSave {
+    padding: 2px 2px 2px 4px;
+    margin-top: 3px;
+    opacity: 0.8;
+    border-radius: 2px;
+    border: 1px solid transparent;
+}
+
+// .jsonEditor-customMenuSave > span:hover {
+//   background-color: rgba(255, 255, 255, 0.2);
+//   border: 1px solid rgba(255, 255, 255, 0.4);
+// }
+
+.output-top-bar{
+    background-color: #3883fa;
+    border-bottom: 1px solid #3883fa;
+    color: white;
+    height: 35px;
+}
