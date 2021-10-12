@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Triplet } from 'src/app/Entities/Triplet';
 import { TripletsService } from 'src/app/services/triplets.service';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
@@ -10,7 +10,7 @@ import { FileSaverService } from 'ngx-filesaver';
   templateUrl: './tab-output.component.html',
   styleUrls: ['./tab-output.component.scss']
 })
-export class TabOutputComponent implements OnInit, AfterViewInit {
+export class TabOutputComponent implements OnInit {
 
   entititiesWithSentencesObject!: Triplet[];
   entitiesWithSentencesObjectOutput: Triplet[];
@@ -35,15 +35,7 @@ export class TabOutputComponent implements OnInit, AfterViewInit {
     this.entitiesWithSentencesObjectOutput = this.tripletSrv.GetTripletsDataForOutput();
   }
 
-  ngAfterViewInit() {
-    // let menuDiv=this.editorTool.nativeElement.querySelector('.jsoneditor-menu');
-    // console.log(menuDiv);
-    // let buttonText='<div class="jsonEditor-customMenuSave" (click)="saveOutputText()"><span style="color: white; cursor:pointer;" title="Save output text"><i class="bi bi-save"></i> Save </span></div>';
-    // //menuDiv.innerHTML+=buttonText;
 
-    // console.log(menuDiv);
-
-  }
   // GetTripletsAsString(){
   //   return JSON.stringify(this.entititiesWithSentencesObject,null,4);
   // }
