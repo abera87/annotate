@@ -3,6 +3,7 @@ import { SelectionRectangle, TextSelectEvent } from 'src/app/directives/text-sel
 import { Triplet } from 'src/app/Entities/Triplet';
 import { TripletsService } from 'src/app/services/triplets.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab-sentence',
@@ -20,7 +21,7 @@ export class TabSentenceComponent implements OnInit, OnDestroy {
   hasEntityPair: boolean;
 
   triplets!: Triplet[];
-
+  IsUploadedTripletsWithRelationsData$: Subscription;
 
   constructor(private tripletSrv: TripletsService, private toastr: ToastrService) {
     this.hostRectangle = null;
@@ -29,12 +30,12 @@ export class TabSentenceComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    //this.tripletSrv.isUploadedTripletsWithRelationsData$.unsubscribe();
+    this.IsUploadedTripletsWithRelationsData$.unsubscribe();
   }
 
- 
+
   ngOnInit(): void {
-    this.tripletSrv.isUploadedTripletsWithRelationsData$.subscribe(data => {
+    this.IsUploadedTripletsWithRelationsData$ = this.tripletSrv.isUploadedTripletsWithRelationsData$.subscribe(data => {
       if (data) {
         this.triplets = this.tripletSrv.GetTripletsData();
         this.hasEntityPair = this.tripletSrv.hasEntityPair;

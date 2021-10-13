@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { FileSaverOptions } from 'file-saver';
 import { FileSaverService } from 'ngx-filesaver';
+import { ToastrService } from 'ngx-toastr';
+import { JsonSchemaValidatorService } from '../services/json-schema-validator.service';
 
 import { TripletsService } from '../services/triplets.service';
 
@@ -11,25 +13,37 @@ import { TripletsService } from '../services/triplets.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  fileContent:string;
+  fileContent: string;
   fileServerOptions: FileSaverOptions = {
     autoBom: false,
   };
 
-  constructor(private tripletsSrv: TripletsService, private fileSaverService: FileSaverService) { }
+  constructor(private tripletsSrv: TripletsService,
+    private toastr: ToastrService,
+    private jsonSchemaValidatorSrv: JsonSchemaValidatorService,
+    private fileSaverService: FileSaverService
+  ) { }
 
   ngOnInit(): void {
   }
 
 
-  LoadSavedState(fileList:FileList):void {
+  LoadSavedState(fileList: FileList): void {
     let file = fileList[0];
     let fileReader: FileReader = new FileReader();
     let self = this;
     fileReader.onloadend = function (x) {
       self.fileContent = (fileReader.result as string);
-      let tripletsWithRelations=JSON.parse(self.fileContent);
-      self.tripletsSrv.SetUploadedTripletsWithRelationsData(tripletsWithRelations);
+      let tripletsWithRelations = JSON.parse(self.fileContent);
+      let result = self.jsonSchemaValidatorSrv.Validate(tripletsWithRelations);
+      if (result.IsValid) {
+        self.tripletsSrv.SetUploadedTripletsWithRelationsData(tripletsWithRelations);
+      }
+      else {
+        let message = result.ErrorDetails.map(x => { return `Value of position ${x.InstancePath}, ${x.Message}` }).join('</br>');
+        self.toastr.error(message, "Uploaded invalid data");
+      }
+      
     }
     fileReader.readAsText(file);
   }
