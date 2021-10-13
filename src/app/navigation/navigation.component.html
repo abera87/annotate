@@ -18,7 +18,7 @@
     <span style="color: white; cursor:pointer;" title="Load saved state" (click)="fileInput.click()">
       <i class="bi bi-upload"></i> Load       
     </span>
-    <input type="file" style="display: none;"  #fileInput (change)="LoadSavedState(fileInput.files)"/>
+    <input type="file" style="display: none;"  #fileInput (change)="LoadSavedState(fileInput.files);fileInput.value=''"/>
   </div>
   <!-- <label class=" app-name">Annotate your Relational Triplets</label> -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

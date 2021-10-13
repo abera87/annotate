@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { RelationMention } from '../Entities/RelationMention';
 import { Triplet } from '../Entities/Triplet';
+import { TripletsWithRelations } from '../Entities/TripletsWithRelations';
 
 @Injectable({
   providedIn: 'root'
@@ -109,8 +110,7 @@ export class TripletsService {
     return tripletsWithRelations;
   }
 
-  SetUploadedTripletsWithRelationsData(data: { Relations: string[], Annotate: Triplet[] }) {
-    //let tripletsWithRelations=JSON.parse(data);
+  SetUploadedTripletsWithRelationsData(data: TripletsWithRelations) {
     data.Relations.forEach((relation, index) => this.relations.push({ Id: index, Text: relation }));
     this.tripletData = [...data.Annotate];
     this.isUploadedTripletsWithRelationsData$.next(true);

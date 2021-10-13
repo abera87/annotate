@@ -1,4 +1,3 @@
-import { EntityMention } from "./EntityMention";
 import { RelationMention } from "./RelationMention";
 
 export class Triplet {
